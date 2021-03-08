@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 using api.Models;
 using System.Web;
+using System.Dynamic;
 
 namespace api.Controllers
 {
@@ -49,19 +50,67 @@ namespace api.Controllers
             return Ok(livros);
         }
 
-        [HttpGet("api/v1/filtro")]
+        [HttpGet("api/v1/filter")]
         [Produces("application/json")]
         public IActionResult Get_filtro()
         {
-            var filtro = new List<string> {"Author", "Desc", "Asc"};
-            var livros = Request.Query;
-            // _regras.Filter(livros);
+            var query = Request.Query;
 
-            Console.WriteLine(livros["name"]);
+            var livros = _regras.ListarLivros();
 
-            foreach(string key in livros.Keys){
-                Console.WriteLine(livros[key]);
-            }
+            //** Transformar isso em um dicionário **
+            
+
+            // Console.WriteLine(livros);
+            // Console.WriteLine("-------------------------");
+            // if(!query["name"].Equals("")){
+                //livros = _regras.GetName(query["name"]);
+            // }
+            // if(!query["author"].Equals("")){
+ 
+                if( !string.IsNullOrEmpty(Request.Query["author"]))
+                    livros = _regras.GetAuthor(query["author"], livros);
+    
+                if( !string.IsNullOrEmpty(Request.Query["desc"]))
+                    livros = _regras.SortByPriceDesc(livros);
+
+                if( !string.IsNullOrEmpty(Request.Query["asc"]))
+                    livros = _regras.SortByPriceAsc(livros);
+
+                if( !string.IsNullOrEmpty(Request.Query["high"])){
+                    double price;
+                    try{
+                        price = Double.Parse(Request.Query["high"]);
+                    }catch(FormatException e){
+                        Console.WriteLine("Erro: na conversao" + e);
+                        price = -1;
+                    }
+
+                    livros = _regras.HigherPrice(price, livros);
+                }
+                if( !string.IsNullOrEmpty(Request.Query["low"])){
+                    double price;
+                    try{
+                        price = Double.Parse(Request.Query["low"]);
+                    }catch(FormatException e){
+                        Console.WriteLine("Erro: na conversao" + e);
+                        price = double.PositiveInfinity;
+                    }
+
+                    livros = _regras.LowerPrice(price, livros);
+                }
+                    
+                
+
+            // }
+            // Console.WriteLine(query["name"]);
+            // if(i.Equals("author")){
+            //     livros = _regras.GetAuthor(query["author"]);
+            // }
+                
+            Console.WriteLine(livros);
+            Console.WriteLine("-------------------------");
+            
 
             if (livros == null)
                 return NotFound();
@@ -99,7 +148,7 @@ namespace api.Controllers
         public IActionResult Get_name(string name)
         {
 
-            Livro livro = _regras.GetName(name);
+            IEnumerable<Livro> livro = _regras.GetName(name);
 
             if (livro == null)
                 return Ok(":( Desculpe, nada para mostrar!");
@@ -127,7 +176,7 @@ namespace api.Controllers
         public IActionResult Order_by_price(double price)
         {
 
-            var livro = _regras.SortBy_price(price);
+            var livro = _regras.HigherPrice(price);
 
             if (livro == null)
                 return Ok(":( Desculpe, nada para mostrar!");
@@ -155,7 +204,7 @@ namespace api.Controllers
         public IActionResult Get_author(string author)
         {
 
-            var livro = _regras.GetAutor(author);
+            var livro = _regras.GetAuthor(author);
 
             if (livro == null)
                 return Ok(":( Desculpe, nada para mostrar!");

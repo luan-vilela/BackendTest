@@ -21,7 +21,7 @@ namespace api.Models
         public double price { get; set; }
         public Specifications specifications { get; set; }
         
-        //método retorna valor do frete
+        // Método que retorna valor do frete
         public double shipping(){
             return price * 0.2;
         }

@@ -8,17 +8,16 @@ namespace api.Models
     public interface IRegras
     {
         Livro GetID(int id);
-        Livro GetName(string name);
-        IEnumerable<Livro> GetAutor(string autor, List<Livro> lista = null);
+        IEnumerable<Livro> GetName(string name, IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> GetAuthor(string author, IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> GetIllustrator(string illustrator, IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> GetGenres(string genres, IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> GetPages(int page, IEnumerable<Livro> lista = null);
         IEnumerable<Livro> ListarLivros();
-
-        IEnumerable<Livro> SortByPriceDesc(List<Livro> lista = null);
-
-        IEnumerable<Livro> SortByPriceAsc(List<Livro> lista = null);
-
-        public IEnumerable<Livro> SortBy_price(double price, List<Livro> lista = null);
-
-        // public IEnumerable<Livro> Filter(IEnumerable<<string,string>>  query);
+        IEnumerable<Livro> SortByPriceDesc(IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> SortByPriceAsc(IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> HigherPrice(double price, IEnumerable<Livro> lista = null);
+        IEnumerable<Livro> LowerPrice(double price, IEnumerable<Livro> lista = null);
     }
     
 }

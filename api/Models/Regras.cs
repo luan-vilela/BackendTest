@@ -12,12 +12,12 @@ using System.Runtime.Serialization.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Linq;
+using api.Config;
 
 namespace api.Models
 {
     public class Regras: IRegras
     {
-
         private readonly List<Livro> _lista;
 
         public Regras()
@@ -27,8 +27,9 @@ namespace api.Models
 
         // Cria Lista de livro a partir de um arquivo json
         private List<Livro> JsonToLivro(){
-            var path = Directory.GetCurrentDirectory() + @"/../books.json" ;
-            
+            var path = new Configure().PathJson;
+            Console.WriteLine(path);
+
             if(!File.Exists(path))
                 return null;
             
@@ -44,19 +45,20 @@ namespace api.Models
             return lista;  
         }
         
-        public string GeraObjJson<T>(T  lista){
+        // Gera objeto para json
+        // public string GeraObjJson<T>(T  lista){
   
-            var ms = new MemoryStream();
-            var ser = new DataContractJsonSerializer(typeof(T));
-            ser.WriteObject(ms, lista);
-            byte[] json = ms.ToArray();
+        //     var ms = new MemoryStream();
+        //     var ser = new DataContractJsonSerializer(typeof(T));
+        //     ser.WriteObject(ms, lista);
+        //     byte[] json = ms.ToArray();
             
-            ms.Close();
-            var jsonString = Encoding.UTF8.GetString(json, 0, json.Length);
-            Console.WriteLine(jsonString);
-            jsonString = jsonString.Replace(@"Pagecount", "Page count").Replace(@"Originallypublished", "Originally published");
-            return jsonString;
-        }
+        //     ms.Close();
+        //     var jsonString = Encoding.UTF8.GetString(json, 0, json.Length);
+        //     Console.WriteLine(jsonString);
+        //     jsonString = jsonString.Replace(@"Pagecount", "Page count").Replace(@"Originallypublished", "Originally published");
+        //     return jsonString;
+        // }
 
         public Livro GetID(int id)
         {
@@ -68,26 +70,28 @@ namespace api.Models
             return _lista;
         }
 
-        public Livro GetName(string name)
-        {
-            return _lista.FirstOrDefault(o => o.name.Equals(name));
-        }
-
-        public IEnumerable<Livro> GetAutor(string autor, List<Livro> lista = null)
+        public IEnumerable<Livro> GetName(string name, IEnumerable<Livro> lista = null)
         {
             if(lista != null)
-                return lista.Where(o => o.specifications.Author.Equals(autor));   
-            return _lista.Where(o => o.specifications.Author.Equals(autor));            
+                return lista.Where(o => o.name.Equals(name));   
+            return _lista.Where(o => o.name.Equals(name));     
         }
 
-        public IEnumerable<Livro> SortByPriceDesc(List<Livro> lista = null)
+        public IEnumerable<Livro> GetAuthor(string author, IEnumerable<Livro> lista = null)
+        {
+            if(lista != null)
+                return lista.Where(o => o.specifications.Author.Equals(author));   
+            return _lista.Where(o => o.specifications.Author.Equals(author));            
+        }
+
+        public IEnumerable<Livro> SortByPriceDesc(IEnumerable<Livro> lista = null)
         {
             if(lista != null)
                 return lista.OrderByDescending(livro => livro.price);
             return _lista.OrderByDescending(livro => livro.price);
         }
 
-        public IEnumerable<Livro> SortByPriceAsc(List<Livro> lista = null)
+        public IEnumerable<Livro> SortByPriceAsc(IEnumerable<Livro> lista = null)
         {
             if(lista != null)
                 return lista.OrderBy(livro => livro.price);
@@ -95,7 +99,7 @@ namespace api.Models
             
         }
 
-        public IEnumerable<Livro> SortBy_price(double price, List<Livro> lista = null)
+        public IEnumerable<Livro> HigherPrice(double price, IEnumerable<Livro> lista = null)
         {
             if(lista != null)
                 return lista.Where(x => x.price >= price);
@@ -103,10 +107,33 @@ namespace api.Models
             
         }
 
-        // public IEnumerable<Livro> Filter(IEnumerable<<string,string>>  query)
-        // {
-        //     Console.WriteLine(query["name"]);
-        //     return null;
-        // }
+        public IEnumerable<Livro> LowerPrice(double price, IEnumerable<Livro> lista = null)
+        {
+            if(lista != null)
+                return lista.Where(x => x.price <= price);
+            return _lista.Where(x => x.price <= price);
+            
+        }
+
+        public IEnumerable<Livro> GetIllustrator(string illustrator, IEnumerable<Livro> lista = null)
+        {
+            if(lista != null)
+                return lista.Where(o => o.specifications.Illustrator.Equals(illustrator));   
+            return _lista.Where(o => o.specifications.Illustrator.Equals(illustrator));  
+        }
+
+        public IEnumerable<Livro> GetGenres(string genres, IEnumerable<Livro> lista = null)
+        {
+            if(lista != null)
+                return lista.Where(o => o.specifications.Genres.Equals(genres));   
+            return _lista.Where(o => o.specifications.Genres.Equals(genres));  
+        }
+
+        public IEnumerable<Livro> GetPages(int page, IEnumerable<Livro> lista = null)
+        {
+            if(lista != null)
+                return lista.Where(x => x.specifications.Pagecount >= page);
+            return _lista.Where(x => x.specifications.Pagecount >= page);
+        }
     }
 }
