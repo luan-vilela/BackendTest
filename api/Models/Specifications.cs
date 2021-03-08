@@ -1,4 +1,7 @@
 /*
+    Classe modelo para receber a conversão do arquivo Json, parte Specifications.
+
+    #### Corpo Json ####
     "specifications": {
             "Originally published":"November 25, 1864",
             "Author":"Jules Verne",
