@@ -14,7 +14,7 @@
 <li class="has-line-data" data-line-start="7" data-line-end="9">Disponibilizar um método que calcule o valor do frete em 20% o valor do livro.</li>
 </ul>
 <h4 class="code-line" data-line-start=9 data-line-end=10><a id="Como_utilizar_9"></a>Como utilizar?</h4>
-<p class="has-line-data" data-line-start="10" data-line-end="11">Basta fazer uma requisição GET para o link base <a href="https://localhost:5001/api/v1/">https://localhost:5001/api/v1/</a> (caso precise trocar localhost pelo nome do site ou ip). Caso tenha colocado corretamente os parametros válidos, a api retornará um JSON.</p>
+<p class="has-line-data" data-line-start="10" data-line-end="11">Basta fazer uma requisição GET para o link base <a href="https://localhost:5001/api/v1/">https://localhost:5001/api/v1/</a> (caso precise, trocar localhost pelo nome do site ou ip). Caso tenha colocado corretamente os parametros válidos, a api retornará um JSON.</p>
 <h4 class="code-line" data-line-start=12 data-line-end=13><a id="Mtodos_disponveis_12"></a>Métodos disponíveis</h4>
 <pre><code class="has-line-data" data-line-start="15" data-line-end="17" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/ : Retorna todos os livros
 </code></pre>
@@ -37,27 +37,28 @@ https://localhost:<span class="hljs-number">5001</span>/api/v1/name/{name} : Ret
 </code></pre>
 <pre><code class="has-line-data" data-line-start="43" data-line-end="45" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/desc/{preço} : Retorna todos os livros com preços abaixo <span class="hljs-keyword">do</span> inserido.
 </code></pre>
-<pre><code class="has-line-data" data-line-start="46" data-line-end="55" class="language-sh">
-- {id} = inteiro
-
-<span class="hljs-comment">### Múltiplos métodos</span>
-Para fazer uma pesquisa Customizada com mais de um método basta usar o link base https://localhost:<span class="hljs-number">5001</span>/api/v1/filter.
-
-https://localhost:<span class="hljs-number">5001</span>/api/v1/filter?author=J. K. Rowling&amp;desc=<span class="hljs-literal">true</span>
-</code></pre>
-<h2 class="code-line" data-line-start=57 data-line-end=58><a id="Como_executar_57"></a>Como executar</h2>
-<ul>
-<li class="has-line-data" data-line-start="58" data-line-end="59">É preciso ter instalado na máquina .net core 5</li>
-<li class="has-line-data" data-line-start="59" data-line-end="60">Faça um clone do repositório</li>
-<li class="has-line-data" data-line-start="60" data-line-end="61">Abra o terminal e navegue até a pasta api</li>
-</ul>
-<pre><code class="has-line-data" data-line-start="62" data-line-end="65" class="language-sh">$ <span class="hljs-built_in">cd</span> pastaRepositorio/api/
-$ dotnet run
+<pre><code class="has-line-data" data-line-start="46" data-line-end="48" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/page/{int} : Retorna todos os livros com números de páginas maior ou igual int.
 </code></pre>
 <ul>
-<li class="has-line-data" data-line-start="65" data-line-end="67">Se tudo correu bem o servidor estará online e api funcionando.</li>
+<li class="has-line-data" data-line-start="50" data-line-end="52">{id} = inteiro</li>
 </ul>
-<h3 class="code-line" data-line-start=67 data-line-end=68><a id="Desenvolvedor_67"></a>Desenvolvedor</h3>
+<h3 class="code-line" data-line-start=52 data-line-end=53><a id="Mltiplos_mtodos_52"></a>Múltiplos métodos</h3>
+<p class="has-line-data" data-line-start="53" data-line-end="54">Para fazer uma pesquisa Customizada com mais de um método basta usar o link base <a href="https://localhost:5001/api/v1/filter">https://localhost:5001/api/v1/filter</a>.</p>
+<pre><code class="has-line-data" data-line-start="56" data-line-end="58" class="language-sh">    https://localhost:<span class="hljs-number">5001</span>/api/v1/filter?author=J. K. Rowling&amp;desc=<span class="hljs-literal">true</span>
+</code></pre>
+<h2 class="code-line" data-line-start=60 data-line-end=61><a id="Como_executar_60"></a>Como executar</h2>
 <ul>
-<li class="has-line-data" data-line-start="69" data-line-end="70">Luan Vilela Lopes</li>
+<li class="has-line-data" data-line-start="61" data-line-end="62">É preciso ter instalado na máquina .net core 5</li>
+<li class="has-line-data" data-line-start="62" data-line-end="63">Faça um clone do repositório</li>
+<li class="has-line-data" data-line-start="63" data-line-end="65">Abra o terminal e navegue até a pasta api</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="66" data-line-end="69" class="language-sh">    $ <span class="hljs-built_in">cd</span> pastaRepositorio/api/
+    $ dotnet run
+</code></pre>
+<ul>
+<li class="has-line-data" data-line-start="70" data-line-end="72">Se tudo correu bem o servidor estará online e api funcionando.</li>
+</ul>
+<h3 class="code-line" data-line-start=72 data-line-end=73><a id="Desenvolvedor_72"></a>Desenvolvedor</h3>
+<ul>
+<li class="has-line-data" data-line-start="74" data-line-end="75">Luan Vilela Lopes</li>
 </ul>
