@@ -126,7 +126,8 @@ namespace api.Models
         {
             if(lista != null)
                 return lista.Where(o => o.specifications.Genres.Equals(genres));   
-            return _lista.Where(o => o.specifications.Genres.Equals(genres));  
+            return (IEnumerable<Livro>)(_lista.GroupBy(o => o.specifications.Genres.Equals(genres)));
+
         }
 
         public IEnumerable<Livro> GetPages(int page, IEnumerable<Livro> lista = null)

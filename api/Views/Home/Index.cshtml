@@ -1,8 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "API";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">API Biblioteca</h1>
 </div>
+
+
+<div class="card">
+  <h5 class="card-header">Exemplo de uso</h5>
+  <div class="card-body">
+
+
+    <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon3">https://localhost:5001/api/v1/</span>
+    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    <button class="form-control btn btn-outline-secondary" type="button" id="button-addon2" onclick="load()">Enviar</button>
+    </div>
+
+  </div>
+</div>
+
+    <div class="card">
+        <pre>
+        <div id="conteudo" class="mx-auto" style="width: 600px;"></div>
+        </pre>
+    </div>
+    
+
+
+
+    <div class="text-center">
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+
+<script>
+    var x
+    function load(){
+        var inp =  $('#basic-url');
+        var url = "https://localhost:5001/api/v1/" + inp.val();
+        //alert("https://localhost:5001/api/v1/" + inp.val());
+        $.get(url, function (data) {
+            x = data;
+            $('#conteudo').html(JSON.stringify(data, undefined, 2));
+        });  
+ 
+
+    }
+</script>

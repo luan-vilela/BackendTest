@@ -59,57 +59,39 @@ namespace api.Controllers
             var livros = _regras.ListarLivros();
 
             //** Transformar isso em um dicionário **
-            
 
-            // Console.WriteLine(livros);
-            // Console.WriteLine("-------------------------");
-            // if(!query["name"].Equals("")){
-                //livros = _regras.GetName(query["name"]);
-            // }
-            // if(!query["author"].Equals("")){
- 
-                if( !string.IsNullOrEmpty(Request.Query["author"]))
-                    livros = _regras.GetAuthor(query["author"], livros);
-    
-                if( !string.IsNullOrEmpty(Request.Query["desc"]))
-                    livros = _regras.SortByPriceDesc(livros);
+            if( !string.IsNullOrEmpty(Request.Query["author"]))
+                livros = _regras.GetAuthor(query["author"], livros);
 
-                if( !string.IsNullOrEmpty(Request.Query["asc"]))
-                    livros = _regras.SortByPriceAsc(livros);
+            if( !string.IsNullOrEmpty(Request.Query["desc"]))
+                livros = _regras.SortByPriceDesc(livros);
 
-                if( !string.IsNullOrEmpty(Request.Query["high"])){
-                    double price;
-                    try{
-                        price = Double.Parse(Request.Query["high"]);
-                    }catch(FormatException e){
-                        Console.WriteLine("Erro: na conversao" + e);
-                        price = -1;
-                    }
+            if( !string.IsNullOrEmpty(Request.Query["asc"]))
+                livros = _regras.SortByPriceAsc(livros);
 
-                    livros = _regras.HigherPrice(price, livros);
+            if( !string.IsNullOrEmpty(Request.Query["high"])){
+                double price;
+                try{
+                    price = Double.Parse(Request.Query["high"]);
+                }catch(FormatException e){
+                    Console.WriteLine("Erro: na conversao" + e);
+                    price = -1;
                 }
-                if( !string.IsNullOrEmpty(Request.Query["low"])){
-                    double price;
-                    try{
-                        price = Double.Parse(Request.Query["low"]);
-                    }catch(FormatException e){
-                        Console.WriteLine("Erro: na conversao" + e);
-                        price = double.PositiveInfinity;
-                    }
 
-                    livros = _regras.LowerPrice(price, livros);
+                livros = _regras.HigherPrice(price, livros);
+            }
+            if( !string.IsNullOrEmpty(Request.Query["low"])){
+                double price;
+                try{
+                    price = Double.Parse(Request.Query["low"]);
+                }catch(FormatException e){
+                    Console.WriteLine("Erro: na conversao" + e);
+                    price = double.PositiveInfinity;
                 }
+
+                livros = _regras.LowerPrice(price, livros);
+            }
                     
-                
-
-            // }
-            // Console.WriteLine(query["name"]);
-            // if(i.Equals("author")){
-            //     livros = _regras.GetAuthor(query["author"]);
-            // }
-                
-            Console.WriteLine(livros);
-            Console.WriteLine("-------------------------");
             
 
             if (livros == null)
@@ -175,7 +157,6 @@ namespace api.Controllers
         [Produces("application/json")]
         public IActionResult Order_by_price(double price)
         {
-
             var livro = _regras.HigherPrice(price);
 
             if (livro == null)
@@ -210,7 +191,21 @@ namespace api.Controllers
                 return Ok(":( Desculpe, nada para mostrar!");
 
             return Ok(livro);
-            // return NotFound();
+            
+        }
+
+        [HttpGet("api/v1/genres/{genres}")]
+        [Produces("application/json")]
+        public IActionResult Get_genres(string genres)
+        {
+
+            var livro = _regras.GetGenres(genres);
+
+            if (livro == null)
+                return Ok(":( Desculpe, nada para mostrar!");
+
+            return Ok(livro);
+            
         }
 
 
