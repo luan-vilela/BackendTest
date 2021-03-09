@@ -28,7 +28,6 @@ namespace api.Models
         // Cria Lista de livro a partir de um arquivo json
         private List<Livro> JsonToLivro(){
             var path = new Configure().PathJson;
-            Console.WriteLine(path);
 
             if(!File.Exists(path))
                 return null;

@@ -32,7 +32,7 @@ namespace api.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Doc()
         {
             return View();
         }
@@ -90,6 +90,18 @@ namespace api.Controllers
                 }
 
                 livros = _regras.LowerPrice(price, livros);
+            }
+            // page > n
+            if( !string.IsNullOrEmpty(Request.Query["page"])){
+                int page;
+                try{
+                    page = int.Parse(Request.Query["page"]);
+                }catch(FormatException e){
+                    Console.WriteLine("Erro: na conversao" + e);
+                    page = 0;
+                }
+
+                livros = _regras.GetPages(page, livros);
             }
                     
             
@@ -180,6 +192,19 @@ namespace api.Controllers
             // return NotFound();
         }
 
+                [HttpGet("api/v1/desc/{price}")]
+        [Produces("application/json")]
+        public IActionResult Order_desc_price(double price)
+        {
+            var livro = _regras.LowerPrice(price);
+
+            if (livro == null)
+                return Ok(":( Desculpe, nada para mostrar!");
+
+            return Ok(livro);
+            // return NotFound();
+        }
+
         [HttpGet("api/v1/author/{author}")]
         [Produces("application/json")]
         public IActionResult Get_author(string author)
@@ -200,6 +225,20 @@ namespace api.Controllers
         {
 
             var livro = _regras.GetGenres(genres);
+
+            if (livro == null)
+                return Ok(":( Desculpe, nada para mostrar!");
+
+            return Ok(livro);
+            
+        }
+
+        [HttpGet("api/v1/page/{page}")]
+        [Produces("application/json")]
+        public IActionResult Get_genres(int page)
+        {
+
+            var livro = _regras.GetPages(page);
 
             if (livro == null)
                 return Ok(":( Desculpe, nada para mostrar!");

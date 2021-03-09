@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Documentação";
+}
+<div class="text-center">
+    <h1 class="display-4">API : Gerenciamento de Livros</h1>
+</div>
+
+
+<h4 class="code-line" data-line-start=2 data-line-end=3><a id="Objetivo_2"></a>Objetivo:</h4>
+<ul>
+<li class="has-line-data" data-line-start="4" data-line-end="5">Criar uma API para buscar produtos no arquivo JSON disponibilizado.</li>
+<li class="has-line-data" data-line-start="5" data-line-end="6">Que seja possível buscar livros por suas especificações(autor, nome do livro ou outro atributo)</li>
+<li class="has-line-data" data-line-start="6" data-line-end="7">É preciso que o resultado possa ser ordenado pelo preço.(asc e desc)</li>
+<li class="has-line-data" data-line-start="7" data-line-end="9">Disponibilizar um método que calcule o valor do frete em 20% o valor do livro.</li>
+</ul>
+<h4 class="code-line" data-line-start=9 data-line-end=10><a id="Como_utilizar_9"></a>Como utilizar?</h4>
+<p class="has-line-data" data-line-start="10" data-line-end="11">Basta fazer uma requisição GET para o link base <a href="https://localhost:5001/api/v1/">https://localhost:5001/api/v1/</a> (caso precise trocar localhost pelo nome do site ou ip). Caso tenha colocado corretamente os parametros válidos, a api retornará um JSON.</p>
+<h4 class="code-line" data-line-start=12 data-line-end=13><a id="Mtodos_disponveis_12"></a>Métodos disponíveis</h4>
+<pre><code class="has-line-data" data-line-start="15" data-line-end="17" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/ : Retorna todos os livros
+</code></pre>
+<pre><code class="has-line-data" data-line-start="18" data-line-end="20" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/id/{id} : Retorna livro com base no id(inteiro).
+</code></pre>
+<pre><code class="has-line-data" data-line-start="21" data-line-end="24" class="language-sh">
+https://localhost:<span class="hljs-number">5001</span>/api/v1/name/{name} : Retorna livro que corresponde ao nome.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="25" data-line-end="27" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/author/{author} : Retorna livros que contém nome <span class="hljs-keyword">do</span> author.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="28" data-line-end="30" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/genres/{genres} : Retorna livros que contém gêneros iguais. (existe bugs)
+</code></pre>
+<pre><code class="has-line-data" data-line-start="31" data-line-end="33" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/shipping/{id} : Retorna o valor <span class="hljs-keyword">do</span> frete.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="34" data-line-end="36" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/asc/ : Retorna todos os livros ordenados pelo preço ascendente.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="37" data-line-end="39" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/asc/{preço} : Retorna todos os livros com preços acima <span class="hljs-keyword">do</span> inserido.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="40" data-line-end="42" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/desc/ : Retorna todos os livros ordenados pelo preço descendente.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="43" data-line-end="45" class="language-sh">https://localhost:<span class="hljs-number">5001</span>/api/v1/desc/{preço} : Retorna todos os livros com preços abaixo <span class="hljs-keyword">do</span> inserido.
+</code></pre>
+<pre><code class="has-line-data" data-line-start="46" data-line-end="55" class="language-sh">
+- {id} = inteiro
+
+<span class="hljs-comment">### Múltiplos métodos</span>
+Para fazer uma pesquisa Customizada com mais de um método basta usar o link base https://localhost:<span class="hljs-number">5001</span>/api/v1/filter.
+
+https://localhost:<span class="hljs-number">5001</span>/api/v1/filter?author=J. K. Rowling&amp;desc=<span class="hljs-literal">true</span>
+</code></pre>
+<h2 class="code-line" data-line-start=57 data-line-end=58><a id="Como_executar_57"></a>Como executar</h2>
+<ul>
+<li class="has-line-data" data-line-start="58" data-line-end="59">É preciso ter instalado na máquina .net core 5</li>
+<li class="has-line-data" data-line-start="59" data-line-end="60">Faça um clone do repositório</li>
+<li class="has-line-data" data-line-start="60" data-line-end="61">Abra o terminal e navegue até a pasta api</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="62" data-line-end="65" class="language-sh">$ <span class="hljs-built_in">cd</span> pastaRepositorio/api/
+$ dotnet run
+</code></pre>
+<ul>
+<li class="has-line-data" data-line-start="65" data-line-end="67">Se tudo correu bem o servidor estará online e api funcionando.</li>
+</ul>
+<h3 class="code-line" data-line-start=67 data-line-end=68><a id="Desenvolvedor_67"></a>Desenvolvedor</h3>
+<ul>
+<li class="has-line-data" data-line-start="69" data-line-end="70">Luan Vilela Lopes</li>
+</ul>
