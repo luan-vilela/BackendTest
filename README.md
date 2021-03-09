@@ -26,7 +26,7 @@ https://localhost:5001/api/v1/name/{name} : Retorna livro que corresponde ao nom
 https://localhost:5001/api/v1/author/{author} : Retorna livros que contém nome do author.
 ```
 ```sh
-https://localhost:5001/api/v1/genres/{genres} : Retorna livros que contém gêneros iguais. (existe bugs)
+https://localhost:5001/api/v1/genres/{genres} : Retorna livros que contém gêneros iguais.
 ```
 ```sh
 https://localhost:5001/api/v1/shipping/{id} : Retorna o valor do frete.
